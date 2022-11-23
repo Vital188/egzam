@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from 'react';
-import Rubs from '../../Contexts/Rubs'
+import Book from '../../Contexts/Book'
 import getBase64 from '../../Functions/getBase64';
 import Year from "../Data/Year";
 function Edit() {
@@ -18,7 +18,7 @@ function Edit() {
             })
     }
 
-    const { setEditData, modalData, setModalData } = useContext(Rubs);
+    const { setEditData, modalData, setModalData } = useContext(Book);
 
     const edit = () => {
         setEditData({

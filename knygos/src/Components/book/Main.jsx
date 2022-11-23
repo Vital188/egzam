@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Rubs from '../../Contexts/Rubs';
+import Book from '../../Contexts/Book';
 import DataContext from '../../Contexts/DataContext';
 import Create from './Create';
 import List from './List';
@@ -12,7 +12,7 @@ function Main() {
 
     const [lastUpdate, setLastUpdate] = useState(Date.now());
     const [createData, setCreateData] = useState(null);
-    const [rubs, setRubs] = useState(null);
+    const [book, setBook] = useState(null);
     const [country, setCountry] = useState(null);
     const [deleteData, setDeleteData] = useState(null);
     const [modalData, setModalData] = useState(null);
@@ -21,9 +21,9 @@ function Main() {
 
     // READ for list
     useEffect(() => {
-        axios.get('http://localhost:3003/server/rubs', authConfig())
+        axios.get('http://localhost:3003/server/book', authConfig())
             .then(res => {
-                setRubs(res.data);
+                setBook(res.data);
             })
     }, [lastUpdate]);
 
@@ -38,7 +38,7 @@ function Main() {
         if (null === createData) {
             return;
         }
-        axios.post('http://localhost:3003/server/rubs', createData, authConfig())
+        axios.post('http://localhost:3003/server/book', createData, authConfig())
             .then(res => {
                 setLastUpdate(Date.now());
                 makeMsg(res.data.text, res.data.type);
@@ -49,7 +49,7 @@ function Main() {
         if (null === deleteData) {
             return;
         }
-        axios.delete('http://localhost:3003/server/rubs/' + deleteData.id, authConfig())
+        axios.delete('http://localhost:3003/server/book/' + deleteData.id, authConfig())
             .then(res => {
                 setLastUpdate(Date.now());
                 makeMsg(res.data.text, res.data.type);
@@ -60,7 +60,7 @@ function Main() {
         if (null === editData) {
             return;
         }
-        axios.put('http://localhost:3003/server/rubs/' + editData.id, editData, authConfig())
+        axios.put('http://localhost:3003/server/book/' + editData.id, editData, authConfig())
             .then(res => {
                 setLastUpdate(Date.now());
                 makeMsg(res.data.text, res.data.type);
@@ -69,9 +69,9 @@ function Main() {
 
 
     return (
-        <Rubs.Provider value={{
+        <Book.Provider value={{
             setCreateData,
-            rubs,
+            book,
             setDeleteData,
             modalData,
             setModalData,
@@ -89,7 +89,7 @@ function Main() {
                 </div>
             </div>
             <Edit />
-        </Rubs.Provider>
+        </Book.Provider>
     )
 }
 export default Main;

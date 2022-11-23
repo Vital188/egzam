@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import Rubs from "../../Contexts/Rubs";
+import Book from '../../Contexts/Book';
 import Line from './Line';
 
 function List() {
 
-    const { rubs } = useContext(Rubs);
+    const { book } = useContext(Book);
 
     return (
         <div className="card m-4">
@@ -12,7 +12,7 @@ function List() {
             <div className="card-body">
                 <ul className="list-group">
                     {
-                        rubs?.map(r => <Line key={r.id} rubs={r} />)
+                        book?.map(r => <Line key={r.id} book={r} />)
                     }
                 </ul>
             </div>
