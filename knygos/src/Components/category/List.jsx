@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import Country from '../../Contexts/Country';
+import Category from '../../Contexts/Category';
 import Line from './Line';
 
 function List() {
 
-    const { country } = useContext(Country);
+    const { category } = useContext(Category);
 
     return (
         <div className="card m-4">
@@ -12,7 +12,7 @@ function List() {
             <div className="card-body">
                 <ul className="list-group">
                     {
-                        country?.map(c => <Line key={c.id} country={c} />)
+                        category?.map(c => <Line key={c.id} category={c} />)
                     }
                 </ul>
             </div>

@@ -169,10 +169,10 @@ app.post("/home/orders/:id", (req, res) => {
 // READ (all)
 app.get("/server/book", (req, res) => {
     const sql = `
-    SELECT b.*, c.id AS cid, c.titl, c.images
+     SELECT b.*, c.id AS cid, c.titl, c.images
      FROM book AS b
      LEFT JOIN category AS c
-     ON b.cat_id = b.id
+     ON b.cat_id = c.id
      ORDER BY b.type
     `;
     con.query(sql, (err, result) => {
@@ -184,7 +184,7 @@ app.get("/server/book", (req, res) => {
 app.get("/home/book/cc", (req, res) => {
     const sql = `
     SELECT b.*, c.id AS cid, c.titl, c.images
-     FROM book AS r
+     FROM book AS b
      LEFT JOIN category AS c
      ON b.cat_id = c.id
      ORDER BY b.type
@@ -201,7 +201,7 @@ app.get("/home/book/cc", (req, res) => {
      SELECT b.*, o.id AS oid, o.orderis
      FROM book AS r
      LEFT JOIN orders AS o
-     ON o.book_id = r.id
+     ON o.book_id = o.id
      ORDER BY b.type
      `;
      con.query(sql, (err, result) => {
@@ -228,7 +228,7 @@ app.get("/home/book/cc", (req, res) => {
     SELECT b.*, o.id AS oid, o.orderis, o.comment, o.post
     FROM book AS b
     INNER JOIN orders AS o
-    ON o.book_id = b.id
+    ON o.book_id = o.id
     ORDER BY b.type
     `;
     con.query(sql, (err, result) => {
@@ -307,10 +307,10 @@ app.put("/home/book/:id", (req, res) => {
     const sql = `
     UPDATE book
     SET 
-    orderis = ?, im = ?, tit = ?
+    orderis = ?, im = ?, tit = ?, dur = ?
     WHERE id = ?
     `;
-    con.query(sql, [ req.body.confirmed, req.body.im, req.body.tit, req.params.id], (err, result) => {
+    con.query(sql, [ req.body.confirmed, req.body.im, req.body.tit, req.body.dur, req.params.id], (err, result) => {
         if (err) throw err;
         res.send({ rsg: 'OK', text: 'Thanks, for your choose.', type: 'info' });
     });

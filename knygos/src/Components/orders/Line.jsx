@@ -3,7 +3,7 @@ import Orders from '../../Contexts/Orders';
 import axios from 'axios'
 import { authConfig } from '../../Functions/auth';
 
-function Line({ rubis }) {
+function Line({ book }) {
 
     const [text, setText] = useState('Confirmation');
     const [color, setColor] = useState('none')
@@ -15,14 +15,14 @@ function Line({ rubis }) {
     }
    
    const handleChangeOrder = () =>{
-          axios.put('http://localhost:3003/server/orders/' + rubis[1][0].oid, {confirmed: 1, post: post}, authConfig())
+          axios.put('http://localhost:3003/server/orders/' + book[1][0].oid, {confirmed: 1, post: post}, authConfig())
             .then(res => {
             setText('CONFIRMED');
             setColor('orange');
             })
 
    }
-  
+  console.log(book)
     return (
         <li className="list-group-item">
             <div className="home" style={{
@@ -32,20 +32,20 @@ function Line({ rubis }) {
                 
                     
                     <div className="line__content__info" >
-                        {rubis[1][0].im ? <div className='img-bin'>
-                            <img src={rubis[1][0].im} alt='upload'>
+                        {book[1][0].im ? <div className='img-bin'>
+                            <img src={book[1][0].im} alt='upload'>
                             </img>
                         </div> : <span className="red-image">No image</span>}
                     </div>
                     <div className="line__content__title">
-                     Country:   {rubis[1][0].tit}
+                     Category:   {book[1][0].tit}
                     </div>
 
-                    {rubis[1][0].image ? <div className='img-bin'>
-                            <img src={rubis[1][0].image} alt='upload'>
+                    {book[1][0].image ? <div className='img-bin'>
+                            <img src={book[1][0].image} alt='upload'>
                             </img>
                         </div> : null}
-                     Type: {rubis[1][0].type}, Size: {rubis[1][0].size}, Color: {rubis[1][0].color}, Price: {rubis[1][0].price}   
+                     Type: {book[1][0].type}, Year: {book[1][0].years}  
                      </div>
                      <div className="mb-3" style={{
                         display: 'flex',
@@ -55,7 +55,7 @@ function Line({ rubis }) {
                        
                          }}>
                      <label className="form-label">Comment:</label>
-                    <textarea className="form-control"  value={rubis[1][0].comment} readOnly style={{
+                    <textarea className="form-control"  value={book[1][0].comment} readOnly style={{
                         height: '100px',
                      }} ></textarea>
                     
@@ -73,7 +73,7 @@ function Line({ rubis }) {
                         <ul className="list-group" style={{
                      listStyle: 'none'
                     }}> 
-                    {rubis[1][0].orderis === 0 ?
+                    {book[1][0].orderis === 0 ?
                                  <button onClick={handleChangeOrder} type="button" style={{
                                     backgroundColor: color,      
                                     color: 'black'
@@ -88,7 +88,7 @@ function Line({ rubis }) {
                      listStyle: 'none'
                     }}> 
                     {
-                        rubis[1]?.map(o =>  <li key={o.oid}  >  
+                        book[1]?.map(o =>  <li key={o.oid}  >  
                            
                                  <button onClick={() => remove(o.oid)} type="button" style={{
                                   

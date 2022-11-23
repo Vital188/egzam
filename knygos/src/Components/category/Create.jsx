@@ -1,6 +1,6 @@
 import { useState, useContext, useRef } from "react";
 import DataContext from "../../Contexts/DataContext";
-import Country from "../../Contexts/Country";
+import Category from "../../Contexts/Category";
 import getBase64 from "../../Functions/getBase64";
 
 function Create() {
@@ -8,7 +8,7 @@ function Create() {
   const [titl, setTitl] = useState('');
   const fileInput = useRef();
 
-  const { setCreateData } = useContext(Country);
+  const { setCreateData } = useContext(Category);
  
 
   const [photoPrint, setPhotoPrint] = useState(null);

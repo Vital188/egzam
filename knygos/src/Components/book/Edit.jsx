@@ -24,7 +24,7 @@ function Edit() {
         setEditData({
             type,
             years,
-                  id: modalData.id,
+            id: modalData.id,
             deletePhoto: deletePhoto ? 1 : 0,
             image: photoPrint
         });

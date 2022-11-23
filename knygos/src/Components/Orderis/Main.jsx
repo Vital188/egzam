@@ -13,7 +13,7 @@ function Main() {
 
     // READ for list
     useEffect(() => {
-           axios.get('http://localhost:3003/rubs/wc', authConfig())
+           axios.get('http://localhost:3003/book/wc', authConfig())
             .then(res => {
                 setRubs(((res.data)));
             })

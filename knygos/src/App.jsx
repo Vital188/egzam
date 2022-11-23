@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes, Navigate, useNavigate } from 'react-route
 import Nav from './Components/Nav';
 import Home from './Components/home/Main';
 import MainOrders from './Components/orders/Main';
-import MainCountry from './Components/country/Main';
+import MainCategory from './Components/category/Main';
 import MainOrderis from './Components/Orderis/Main';
-import MainRubs from './Components/rubs/Main';
+import MainBook from './Components/book/Main';
 import RegisterPage from './Components/register/Main';
 import { login, logout, authConfig } from './Functions/auth';
 import { useState, useEffect, useCallback, useContext } from 'react';
@@ -56,9 +56,9 @@ function App() {
           <Route path="/" element={<RequireAuth role="user"><Home /></RequireAuth>}></Route>
           <Route path="/login" element={<LoginPage setRoleChange={setRoleChange} />} />
           <Route path="/logout" element={<LogoutPage setRoleChange={setRoleChange} />} />
-          <Route path="/rubs" element={<RequireAuth role="admin"><MainRubs /></RequireAuth>}></Route>
+          <Route path="/book" element={<RequireAuth role="admin"><MainBook /></RequireAuth>}></Route>
           <Route path="/orders" element={<RequireAuth role="admin"><MainOrders /></RequireAuth>}></Route>
-          <Route path="/country" element={<RequireAuth role="admin"><MainCountry /></RequireAuth>}></Route>
+          <Route path="/category" element={<RequireAuth role="admin"><MainCategory /></RequireAuth>}></Route>
           <Route path="/Orderis" element={<RequireAuth role="user"><MainOrderis /></RequireAuth>}></Route>
           <Route path="/register" element={<RegisterPage setRoleChange={setRoleChange} />} />
         </Routes>

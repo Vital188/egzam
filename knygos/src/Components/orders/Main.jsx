@@ -11,17 +11,17 @@ function Main() {
     const [lastUpdate, setLastUpdate] = useState(Date.now());
     const [orders, setOrders] = useState(null);
     const { makeMsg } = useContext(DataContext);
-    const [rubis, setRubis] = useState (null);
+    const [book, setBook] = useState (null);
     const [create, setCreate] = useState(null);
     const [deleteData, setDeleteData] = useState(null);
 
     const reList = data => {
         const d = new Map();
         data.forEach(line => {
-            if (d.has(line.price)) {
-                d.set(line.price, [...d.get(line.price), line]);
+            if (d.has(line.type)) {
+                d.set(line.type, [...d.get(line.type), line]);
             } else {
-                d.set(line.price, [line]);
+                d.set(line.type, [line]);
             }
         });
         return [...d];
@@ -29,16 +29,16 @@ function Main() {
 
     // READ for list
     useEffect(() => {
-        axios.get('http://localhost:3003/rubs/wc', authConfig())
+        axios.get('http://localhost:3003/book/wc', authConfig())
             .then(res => {
-                setRubis(reList(res.data));
+                setBook(reList(res.data));
             })
     }, [lastUpdate]);
 
     useEffect(() => {
-        axios.get('http://localhost:3003/server/rubs/wc', authConfig())
+        axios.get('http://localhost:3003/server/book/wc', authConfig())
             .then(res => {
-                setRubis(reList(res.data));
+                setBook(reList(res.data));
             })
     }, [lastUpdate]);
 
@@ -60,7 +60,7 @@ function Main() {
         if (null === deleteData) {
             return;
         }
-        axios.delete('http://localhost:3003/server/rubs/' + deleteData.id, authConfig())
+        axios.delete('http://localhost:3003/server/book/' + deleteData.id, authConfig())
             .then(res => {
                 setLastUpdate(Date.now());
                 makeMsg(res.data.text, res.data.type);
@@ -73,7 +73,7 @@ function Main() {
         <Orders.Provider value={{
             setOrders,
             orders,
-            rubis, 
+            book, 
             setDeleteData,
             setCreate
         }}>

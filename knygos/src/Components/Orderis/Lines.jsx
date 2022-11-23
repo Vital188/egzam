@@ -1,6 +1,6 @@
 
 
-function Lines({ rubs }) {
+function Lines({ book }) {
 
 
   
@@ -13,20 +13,20 @@ function Lines({ rubs }) {
                 <div className="home__content">
                     <div className="home__content__info" >
                         <div className="line__content__info">
-                        {rubs.im ? <div className='img-bin'>
-                            <img src={rubs.im} alt='upload'>
+                        {book.im ? <div className='img-bin'>
+                            <img src={book.im} alt='upload'>
                             </img>
                         </div> : <span className="red-image">No image</span>}
                     </div>
                     <div className="line__content__title">
-                     Country:   {rubs.tit}
+                     Country:   {book.tit}
                     </div>
 
-                    {rubs.image ? <div className='img-bin'>
-                            <img src={rubs.image} alt='upload'>
+                    {book.image ? <div className='img-bin'>
+                            <img src={book.image} alt='upload'>
                             </img> 
                          </div> : null} 
-                     Type: {rubs.type}, Size: {rubs.size}, Color: {rubs.color}, Price: {rubs.price}                      
+                     Type: {book.type}  Year: {book.years}                   
                      <div className="mb-3" style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -35,17 +35,17 @@ function Lines({ rubs }) {
                         marginLeft: '5px'                     
                          }}>
                      <label className="form-label">Yours comment:</label>
-                    <textarea className="form-control"  value={rubs.comment} readOnly style={{
+                    <textarea className="form-control"  value={book.comment} readOnly style={{
                         height: '100px',
                      }} ></textarea>
                     
                     
                     <label className="form-label">Admin answer:</label>
-                    <textarea className="form-control"  value={rubs.post} readOnly style={{
+                    <textarea className="form-control"  value={book.post} readOnly style={{
                         height: '100px',
                      }} ></textarea>
                     
-                {rubs.orderis === 0 ? <button style={{
+                {book.orderis === 0 ? <button style={{
                     marginTop: '10px',
                     backgroundColor: 'green',
                     borderRadius: '10px',

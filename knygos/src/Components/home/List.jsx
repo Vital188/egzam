@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import Home from "../../Contexts/Home";
 import Line from "./Line";
-import Year from "../Data/Year";
-import Clothes from "../Data/Clothes";
+// import Year from "../Data/Year";
+// import Clothes from "../Data/Clothes";
 // import Color from "../Data/Color";
 
 // const sortData = [
@@ -12,13 +12,13 @@ import Clothes from "../Data/Clothes";
 // ];
 
 function List() {
-  const { rubs, setRubs } = useContext(Home);
+  const { book, setBook } = useContext(Home);
   const [type, setType] = useState("");
   const [years, setYears] = useState("0");
  
 
   // const [sortBy, setSortBy] = useState("default");
-  const [stats, setStats] = useState({ rubsCount: null });
+  const [stats, setStats] = useState({ bookCount: null });
   const [rubFiltered, setRubFiltered] = useState([]);
 
   const [titl, setTitl] = useState('');
@@ -26,42 +26,42 @@ function List() {
  
 
   useEffect(() => {
-    if (null === rubs) {
+    if (null === book) {
       return;
     }
-    setStats((s) => ({ ...s, rubsCount: rubs.length }));
-  }, [rubs]);
+    setStats((s) => ({ ...s, bookCount: book.length }));
+  }, [book]);
 
   // useEffect(() => {
   //   switch (sortBy) {
   //     case "price_asc":
-  //       setRubs((r) => [...r]?.sort((a, b) => a.price - b.price));
+  //       setBook((r) => [...r]?.sort((a, b) => a.price - b.price));
   //       break;
   //     case "price_desc":
-  //       setRubs((r) => [...r]?.sort((b, a) => a.price - b.price));
+  //       setBook((r) => [...r]?.sort((b, a) => a.price - b.price));
   //       break;
   //     default:
-  //       setRubs((r) => [...(r ?? [])]?.sort((a, b) => a.row - b.row));
+  //       setBook((r) => [...(r ?? [])]?.sort((a, b) => a.row - b.row));
   //   }
-  // }, [sortBy, setRubs]);
+  // }, [sortBy, setBook]);
 
   // useEffect(() => {
-  //   if (rubs !== null) {
-  //     setRubFiltered([...rubs]?.filter((el) => el.color === color));
+  //   if (book !== null) {
+  //     setRubFiltered([...book]?.filter((el) => el.color === color));
   //   }
-  // }, [color, rubs]);
+  // }, [color, book]);
 
   useEffect(() => {
-    if (rubs !== null) {
-      setRubFiltered([...rubs]?.filter((el) => el.years === years));
+    if (book !== null) {
+      setRubFiltered([...book]?.filter((el) => el.years === years));
     }
-  }, [rubs, years]);
+  }, [book, years]);
 
   useEffect(() => {
-    if (rubs !== null) {
-      setRubFiltered([...rubs]?.filter((el) => el.type === type));
+    if (book !== null) {
+      setRubFiltered([...book]?.filter((el) => el.type === type));
     }
-  }, [rubs, type]);
+  }, [book, type]);
 
   const stop = () => {
     setRubFiltered([]);
@@ -71,10 +71,10 @@ function List() {
  
 
   useEffect(() => {
-    if (rubs !== null) {
-      setRubFiltered([...rubs]?.filter((el) => el.type === titl));
+    if (book !== null) {
+      setRubFiltered([...book]?.filter((el) => el.type === titl));
     }
-  }, [rubs, titl]);
+  }, [book, titl]);
 
  
   return (
@@ -115,9 +115,9 @@ function List() {
               aria-label="Default select example"
             >
               <option value={0} disabled>
-                Choose clothes type from list:
+                Choose book name from list:
               </option>
-              {rubs?.map((cl) => (
+              {book?.map((cl) => (
                 <option key={cl.id} value={cl.type}>
                   {cl.type}
                 </option>
@@ -125,7 +125,7 @@ function List() {
             </select>
           </div>
           <div className="mb-3">
-            <label className="form-label">Sort by years:</label>
+            <label className="form-label">Sort book by years:</label>
             <select
               className="form-select mb-4"
               value={years}
@@ -133,9 +133,9 @@ function List() {
               aria-label="Default select example"
             >
               <option value={0} disabled>
-                Choose years from list:
+                Choose books years from list:
               </option>
-              {rubs?.map((year) => (
+              {book?.map((year) => (
                 <option key={year.id} value={year.years}>
                   {year.years}
                 </option>
@@ -167,12 +167,12 @@ function List() {
         </div>
       </div>
       <div className="card m-4">
-        <h5 className="card-header">Total number cloths in the list ({stats.rubsCount})</h5>
+        <h5 className="card-header">Total book numbers in the list ({stats.bookCount})</h5>
         <div className="card-body">
           <div className="list-group">
             {rubFiltered.length > 0
-              ? (rubFiltered?.map((r) => <Line key={r.id} rubs={r} />))
-              : (rubs?.map((r) => <Line key={r.id} rubs={r} />))}
+              ? (rubFiltered?.map((r) => <Line key={r.id} book={r} />))
+              : (book?.map((r) => <Line key={r.id} book={r} />))}
           </div>
         </div>
       </div>

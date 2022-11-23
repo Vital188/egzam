@@ -6,7 +6,7 @@ import Line from './Line';
 
 function List() {
 
-    const { rubis } = useContext(Orders);
+    const { book } = useContext(Orders);
     const [stats, setStats] = useState({ rubsCount: null });
 
 // useEffect(() => {
@@ -17,11 +17,11 @@ function List() {
 // }, [rubs]);
 
     useEffect(() => {
-        if (null === rubis) {
+        if (null === book) {
             return;
         }
-        setStats(s => ({ ...s, rubsCount: rubis.length }));
-    }, [rubis]);
+        setStats(s => ({ ...s, rubsCount: book.length }));
+    }, [book]);
 
     return (
         <div className="card m-4">
@@ -29,7 +29,7 @@ function List() {
             <div className="card-body">
                 <ul className="list-group">
                      {
-                        rubis?.map(r => <Line key={r.id} rubis={r}  />)
+                        book?.map(r => <Line key={r.id} book={r}  />)
                     } 
                 </ul>
             </div>

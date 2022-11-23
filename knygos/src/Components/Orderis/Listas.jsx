@@ -5,37 +5,37 @@ import Lines from './Lines'
 
 function Listas() {
 
-    const { rubs } = useContext(Orders);
-    const [stats, setStats] = useState({ rubsCount: null });
+    const { book } = useContext(Orders);
+    const [stats, setStats] = useState({ bookCount: null });
     const [total, setTotal] = useState({ totalPrice: null});
 
     useEffect(() => {
-        if (null === rubs) {
+        if (null === book) {
             return;
         }
-        setStats(s => ({ ...s, rubsCount: rubs.length }));
-    }, [rubs]);
+        setStats(s => ({ ...s, bookCount: book.length }));
+    }, [book]);
 
-    useEffect(() => {
-        if (null === rubs) {
-            return;
-        }
-        setTotal(o => ({ ...o, totalPrice: rubs.reduce((a, b) => (a + b.price), 0) }));
-    }, [rubs]);
+    // useEffect(() => {
+    //     if (null === book) {
+    //         return;
+    //     }
+    //     setTotal(o => ({ ...o, totalPrice: book.reduce((a, b) => (a + b.price), 0) }));
+    // }, [book]);
 
 
     return (
         <div className="card m-4">
             <h5 className="card-header">
                 Your orders list:
-                cloths number: {stats.rubsCount}, 
-                total price: {total.totalPrice}
+                cloths number: {stats.bookCount} 
+                {/* total price: {total.totalPrice} */}
                 </h5>
             <div className="card-body">
 
                 <ul className="list-group">
                     {
-                        rubs?.map(r => <Lines key={r.id} rubs={r}   />)
+                        book?.map(r => <Lines key={r.id} book={r}   />)
                     }
                 </ul>  
             </div>

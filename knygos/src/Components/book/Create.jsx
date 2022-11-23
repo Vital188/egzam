@@ -12,7 +12,7 @@ function Create() {
   // const [price, setPrice] = useState("");
   const fileInput = useRef();
 
-  const { setCreateData, country } = useContext(Book);
+  const { setCreateData, category } = useContext(Book);
   const { makeMsg } = useContext(DataContext);
 
   const [photoPrint, setPhotoPrint] = useState(null);
@@ -27,7 +27,7 @@ function Create() {
 
   const add = () => {
     setCreateData({
-      cat_id:  titl,
+      cat_id:  parseInt(titl),
       type,
       years,
       image: photoPrint
@@ -51,9 +51,9 @@ function Create() {
           aria-label="Default select example"
         >
           <option value={0} disabled>
-            Choose country from list:
+            Choose category from list:
           </option>
-          {country?.map((cl) => (
+          {category?.map((cl) => (
             <option key={cl.id} value={cl.id}>
               {cl.titl}
             </option>

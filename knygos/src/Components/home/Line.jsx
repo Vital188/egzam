@@ -2,10 +2,11 @@ import { useContext } from 'react';
 import Home from '../../Contexts/Home';
 import axios from 'axios';
 import { authConfig } from '../../Functions/auth';
+import Dur from '../Data/Dur';
 
 import { useState } from "react";
 
-function Line({ rubs}) {
+function Line({ book}) {
 
     const { setOrder } = useContext(Home);
 
@@ -13,32 +14,34 @@ function Line({ rubs}) {
     const [post, setPost] = useState('');
     const [text, setText] = useState('Order');
     const [color, setColor] = useState('skyblue')
+    const [dur, setDur] = useState('0');
+    const [nm, setNm] = useState('0')
     const [text2, setText2] = useState('Favorite');
     const [coloris2, setColoris2] = useState('crimson')
 
     const handleChangeOrder = () => {
-        axios.put('http://localhost:3003/home/rubs/' + rubs.id, {confirmed: 1, im: rubs.images, tit: rubs.titl}, authConfig())
+        axios.put('http://localhost:3003/home/book/' + book.id, {confirmed: 1, im: book.images, tit: book.titl, dur: dur}, authConfig())
         .then(res => {
         setText('Ordered');
         setColor('orange');
         });
         setOrder({
             comment: post,
-            rubs_id: rubs.id
+            book_id: book.id
         });
         setPost('');
        }
 
-    const fav = () => {
-        axios.put('http://localhost:3003/home/rubs/' + rubs.id, {confirmed: 1}, authConfig())
-  setOrder({
-    comment: post,
-    rubs_id: rubs.id
-  });
-  setPost('');
-  setText2('Favorite choose');
-  setColoris2('green');
- }   
+//     const fav = () => {
+//         axios.put('http://localhost:3003/home/book/' + book.id, {confirmed: 1}, authConfig())
+//   setOrder({
+//     comment: post,
+//     book_id: book.id
+//   });
+//   setPost('');
+//   setText2('Favorite choose');
+//   setColoris2('green');
+//  }   
        
     return ( <>
     
@@ -50,19 +53,19 @@ function Line({ rubs}) {
                 }}>
                 
                 <div className="line__content__info">
-                        {rubs.images ? <div className='img-bin'>
-                            <img src={rubs.images} alt={rubs.type}>
+                        {book.images ? <div className='img-bin'>
+                            <img src={book.images} alt={book.type}>
                             </img>
                         </div> : <span className="red-image">No image</span>}
                     </div>
                     <div className="line__content__title">
-                     Category:   {rubs.titl}
+                     Category:   {book.titl}
                     </div>
-                        {rubs.image ? <div className='img-bin'>
-                            <img src={rubs.image} alt='upload'>
+                        {book.image ? <div className='img-bin'>
+                            <img src={book.image} alt='upload'>
                             </img>
                         </div> : null}
-                     Name: {rubs.type}, Year: {rubs.years}  
+                     Name: {book.type}, Year: {book.years}  
                      <div className="mb-3" style={{
                         marginLeft: '10px',
                         color: 'black',
@@ -74,8 +77,43 @@ function Line({ rubs}) {
 
                      }} onChange={e => setPost(e.target.value)}></textarea>
                     </div>
+
+                    <div className="mb-3">
+            <label className="form-label">Duration:</label>
+            <select
+              className="form-select mb-4"
+              value={dur}
+              onChange={(e) => setDur(e.target.value)}
+              aria-label="Default select example"
+            >
+              <option value={0} disabled>
+                Choose duration from list:
+              </option>
+              {Dur?.map((cl) => (
+                <option key={cl.id} value={cl.type}>
+                  {cl.type}
+                </option>
+              ))}
+            </select>
+            {/* <label className="form-label">Duration:</label>
+            <select
+              className="form-select mb-4"
+              value={nm}
+              onChange={(e) => setNm(e.target.value)}
+              aria-label="Default select example"
+            >
+              <option value={0} disabled>
+                Choose duration from list:
+              </option>
+              {Dur?.map((cl) => (
+                <option key={cl.id} value={cl.type}>
+                  {cl.type}
+                </option>
+              ))}
+            </select> */}
+          </div>
  
-                    {rubs.orderis === 0 ?
+                    {book.orderis === 0 ?
                        <button onClick={handleChangeOrder} type="button" style={{
                         backgroundColor: color,
                         color: 'black',
@@ -86,7 +124,7 @@ function Line({ rubs}) {
                             marginLeft: '10px'
                         }} className="btn btn-outline-success" disabled>Book ordered</button> }
 
-                         {/* {rubs.orderis === 0 ?
+                         {/* {book.orderis === 0 ?
                          <button  type="button" onClick={fav} className="btn btn-outline-danger">FAVORITE</button>: <button type="button" style={{ 
                             backgroundColor: 'green',
                             color: 'black',

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from 'react';
-import Country from '../../Contexts/Country'
+import Category from '../../Contexts/Category';
 import getBase64 from '../../Functions/getBase64';
 
 function Edit() {
@@ -17,7 +17,7 @@ function Edit() {
             })
     }
 
-    const { setEditData, modalData, setModalData } = useContext(Country);
+    const { setEditData, modalData, setModalData } = useContext(Category);
 
     const edit = () => {
         setEditData({
@@ -34,8 +34,8 @@ function Edit() {
         if (null === modalData) {
             return;
         }
-        setTitl(modalData.title);
-        setPhotoPrint(modalData.image);
+        setTitl(modalData.titl);
+        setPhotoPrint(modalData.images);
         setDeletePhoto(false);
     }, [modalData])
 
@@ -49,14 +49,14 @@ function Edit() {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-type">Edit Country</h5>
+                        <h5 className="modal-type">Edit Category</h5>
                         <button onClick={() => setModalData(null)} type="button" className="btn-close"></button>
                     </div>
                     <div className="modal-body"></div>
                     <div className="card m-4">
                     <div className="card-body">
                     <div className="mb-3">
-                    <label className="form-label">Country</label>
+                    <label className="form-label">Category</label>
                     <input type="text" className="form-control" value={titl} onChange={e => setTitl(e.target.value)} />
                 </div>
                                     <div className="mb-3">

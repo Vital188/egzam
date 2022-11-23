@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Country from '../../Contexts/Country';
+import Category from '../../Contexts/Category'
 import DataContext from '../../Contexts/DataContext';
 import Create from './Create';
 import List from './List';
@@ -12,7 +12,7 @@ function Main() {
 
     const [lastUpdate, setLastUpdate] = useState(Date.now());
     const [createData, setCreateData] = useState(null);
-    const [country, setCountry] = useState(null);
+    const [category, setCategory] = useState(null);
     const [deleteData, setDeleteData] = useState(null);
     const [modalData, setModalData] = useState(null);
     const [editData, setEditData] = useState(null);
@@ -20,9 +20,9 @@ function Main() {
 
     // READ for list
     useEffect(() => {
-        axios.get('http://localhost:3003/server/country', authConfig())
+        axios.get('http://localhost:3003/server/category', authConfig())
             .then(res => {
-                setCountry(res.data);
+                setCategory(res.data);
             })
     }, [lastUpdate]);
 
@@ -30,7 +30,7 @@ function Main() {
         if (null === createData) {
             return;
         }
-        axios.post('http://localhost:3003/server/country', createData, authConfig())
+        axios.post('http://localhost:3003/server/category', createData, authConfig())
             .then(res => {
                 setLastUpdate(Date.now());
                 makeMsg(res.data.text, res.data.type);
@@ -41,7 +41,7 @@ function Main() {
         if (null === deleteData) {
             return;
         }
-        axios.delete('http://localhost:3003/server/country/' + deleteData.id, authConfig())
+        axios.delete('http://localhost:3003/server/category/' + deleteData.id, authConfig())
             .then(res => {
                 setLastUpdate(Date.now());
                 makeMsg(res.data.text, res.data.type);
@@ -52,7 +52,7 @@ function Main() {
         if (null === editData) {
             return;
         }
-        axios.put('http://localhost:3003/server/country/' + editData.id, editData, authConfig())
+        axios.put('http://localhost:3003/server/category/' + editData.id, editData, authConfig())
             .then(res => {
                 setLastUpdate(Date.now());
                 makeMsg(res.data.text, res.data.type);
@@ -61,9 +61,9 @@ function Main() {
 
 
     return (
-        <Country.Provider value={{
+        <Category.Provider value={{
             setCreateData,
-            country,
+            category,
             setDeleteData,
             modalData,
             setModalData,
@@ -80,7 +80,7 @@ function Main() {
                 </div>
             </div>
             <Edit />
-        </Country.Provider>
+        </Category.Provider>
     )
 }
 export default Main;

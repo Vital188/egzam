@@ -9,34 +9,34 @@ import DataContext from "../../Contexts/DataContext";
 function Main() {
 
         const [lastUpdate, setLastUpdate] = useState(Date.now());
-        const [rubs, setRubs] = useState(null);
+        const [book, setBook] = useState(null);
         const [clot, setClot] = useState(null);
         const [order, setOrder] = useState(null);
         const { makeMsg } = useContext(DataContext);
 
-        const reList = data => {
-            const d = new Map();
-            data.forEach(line => {
-                if (d.has(line.type)) {
-                    d.set(line.type, [...d.get(line.type), line]);
-                } else {
-                    d.set(line.type, [line]);
-                }
-            });
-            return [...d];
-        }
+        // const reList = data => {
+        //     const d = new Map();
+        //     data.forEach(line => {
+        //         if (d.has(line.type)) {
+        //             d.set(line.type, [...d.get(line.type), line]);
+        //         } else {
+        //             d.set(line.type, [line]);
+        //         }
+        //     });
+        //     return [...d];
+        // }
 
     
         // READ for list
         useEffect(() => {
-            axios.get('http://localhost:3003/home/rubs/cc', authConfig())
+            axios.get('http://localhost:3003/home/book/cc', authConfig())
                 .then(res => {
-                    setRubs(res.data);
+                    setBook(res.data);
                 })
         }, [lastUpdate]);
 
         useEffect(() => {
-            axios.get('http://localhost:3003/home/rubs/cc', authConfig())
+            axios.get('http://localhost:3003/home/book/cc', authConfig())
                 .then(res => {
                     setClot(res.data);
                 })
@@ -46,7 +46,7 @@ function Main() {
             if (null === order) {
                 return;
             }
-            axios.post('http://localhost:3003/home/orders/' + order.rubs_id, order, authConfig())
+            axios.post('http://localhost:3003/home/orders/' + order.book_id, order, authConfig())
             .then(res => {
                 setLastUpdate(Date.now());
                 makeMsg(res.data.text, res.data.type);
@@ -56,8 +56,8 @@ function Main() {
       return (
         <Home.Provider value={{
             setOrder,
-            rubs,
-            setRubs, 
+            book,
+            setBook, 
             clot
         }}>
         <div className="container">

@@ -13,7 +13,7 @@ function Main() {
     const [lastUpdate, setLastUpdate] = useState(Date.now());
     const [createData, setCreateData] = useState(null);
     const [book, setBook] = useState(null);
-    const [country, setCountry] = useState(null);
+    const [category, setCategory] = useState(null);
     const [deleteData, setDeleteData] = useState(null);
     const [modalData, setModalData] = useState(null);
     const [editData, setEditData] = useState(null);
@@ -28,9 +28,9 @@ function Main() {
     }, [lastUpdate]);
 
     useEffect(() => {
-        axios.get('http://localhost:3003/server/country', authConfig())
+        axios.get('http://localhost:3003/server/category', authConfig())
             .then(res => {
-                setCountry(res.data);
+                setCategory(res.data);
             })
     }, [lastUpdate]);
 
@@ -76,7 +76,7 @@ function Main() {
             modalData,
             setModalData,
             setEditData,
-            country
+            category
         }}>
             <div className="container">
                 <div className="row">

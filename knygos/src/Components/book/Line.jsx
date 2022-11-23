@@ -21,7 +21,7 @@ console.log(book)
                         </div> : <span className="red-image">No image</span>}
                     </div>
                     <div className="line__content__title">
-                     Country:   {book.titl}
+                     Category:   {book.titl}
                     </div>
                     <div className="line__content__info">
                         {book.image ? <div className='img-bin'>
