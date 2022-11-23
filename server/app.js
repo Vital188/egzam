@@ -19,7 +19,7 @@ const con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database: "tailorshop",
+    database: "knygos",
 });
 
 ////////////////////LOGIN/////////////////
@@ -133,12 +133,12 @@ app.post("/register", (req, res) => {
 //CREATE
 app.post("/server/rubs", (req, res) => {
     const sql = `
-    INSERT INTO rubs (cat_id, type, size, color, price, image)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO rubs (cat_id, type, years, image)
+    VALUES (?, ?, ?, ?)
     `;
-    con.query(sql, [req.body.cat_id, req.body.type,  req.body.size, req.body.color, req.body.price, req.body.image], (err, result) => {
+    con.query(sql, [req.body.cat_id, req.body.type, req.body.years, req.body.image], (err, result) => {
         if (err) throw err;
-        res.send({ rsg: 'OK', text: 'New rub was added.', type: 'success' });
+        res.send({ rsg: 'OK', text: 'New book was added.', type: 'success' });
     });
 });
 
@@ -321,24 +321,24 @@ app.put("/server/rubs/:id", (req, res) => {
     if (req.body.deletePhoto) {
         sql = `
         UPDATE rubs
-        SET type = ?, size = ?, color = ?, price = ?, image = null
+        SET type = ?, years = ?, image = null
         WHERE id = ?
         `;
-        r = [req.body.type, req.body.size, req.body.color, req.body.price, req.params.id];
+        r = [req.body.type, req.body.years, req.params.id];
     } else if (req.body.image) {
         sql = `
         UPDATE rubs
-        SET type = ?, size = ?, color = ?, price = ?, image = ?
+        SET type = ?, years = ?, image = ?
         WHERE id = ?
         `;
-        r = [req.body.type, req.body.size, req.body.color, req.body.price, req.body.image, req.params.id];
+        r = [req.body.type, req.body.years, req.body.image, req.params.id];
     } else {
         sql = `
         UPDATE rubs
-        SET type = ?, size = ?, color = ?, price = ?
+        SET type = ?, years = ?
         WHERE id = ?
         `;
-        r = [req.body.type, req.body.size, req.body.color, req.body.price, req.params.id]
+        r = [req.body.type, req.body.years, req.params.id]
     }
     con.query(sql, r, (err, result) => {
         if (err) throw err;

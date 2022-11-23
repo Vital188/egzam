@@ -8,7 +8,7 @@ function List() {
 
     return (
         <div className="card m-4">
-            <h5 className="card-header">Country List</h5>
+            <h5 className="card-header">Categories List</h5>
             <div className="card-body">
                 <ul className="list-group">
                     {

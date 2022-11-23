@@ -56,13 +56,13 @@ function Line({ rubs}) {
                         </div> : <span className="red-image">No image</span>}
                     </div>
                     <div className="line__content__title">
-                     Country:   {rubs.titl}
+                     Category:   {rubs.titl}
                     </div>
                         {rubs.image ? <div className='img-bin'>
                             <img src={rubs.image} alt='upload'>
                             </img>
                         </div> : null}
-                     Type: {rubs.type}, Size: {rubs.size}, Color: {rubs.color}, Price: {rubs.price}   
+                     Name: {rubs.type}, Year: {rubs.years}  
                      <div className="mb-3" style={{
                         marginLeft: '10px',
                         color: 'black',
@@ -84,15 +84,15 @@ function Line({ rubs}) {
                             color: 'black',
                             border: '1px solid black',
                             marginLeft: '10px'
-                        }} className="btn btn-outline-success" disabled>Order impossible</button> }
+                        }} className="btn btn-outline-success" disabled>Book ordered</button> }
 
-                         {rubs.orderis === 0 ?
+                         {/* {rubs.orderis === 0 ?
                          <button  type="button" onClick={fav} className="btn btn-outline-danger">FAVORITE</button>: <button type="button" style={{ 
                             backgroundColor: 'green',
                             color: 'black',
                             border: '1px solid black',
                             marginLeft: '10px'
-                        }} className="btn btn-outline-success" disabled>FAVORITED</button> }
+                        }} className="btn btn-outline-success" disabled>FAVORITED</button> } */}
                 </div>
             </div>
             

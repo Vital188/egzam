@@ -4,7 +4,7 @@ import Rubs from '../../Contexts/Rubs';
 function Line({ rubs }) {
 
     const { setDeleteData, setModalData } = useContext(Rubs);
-
+console.log(rubs)
     return (
         <li className="list-group-item">
             <div className="line" style={{
@@ -33,14 +33,14 @@ function Line({ rubs }) {
                      <b>Type:</b>   {rubs.type}
                     </div>
                     <div className="line__content__info">
-                    <b> Size:</b>   {rubs.size}
+                    <b> Years:</b>   {rubs.years}
                     </div>
-                    <div className="line__content__info">
+                    {/* <div className="line__content__info">
                     <b> Color:</b>   {rubs.color}
                     </div>
                     <div className="line__content__info">
                     <b> Price:</b>   {rubs.price}
-                    </div>
+                    </div> */}
                 </div>
                 <div className="line__buttons" style={{
                     margin: '0px'

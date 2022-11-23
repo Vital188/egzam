@@ -1,16 +1,11 @@
 import { useContext, useEffect, useState, useRef } from 'react';
 import Rubs from '../../Contexts/Rubs'
 import getBase64 from '../../Functions/getBase64';
-import Size from "../Data/Size";
-import Clothes from "../Data/Clothes";
-import Color from "../Data/Color";
-
+import Year from "../Data/Year";
 function Edit() {
 
     const [type, setType] = useState('');
-    const [size, setSize] = useState('');
-    const [color, setColor] = useState('')
-    const [price, setPrice] = useState('');
+    const [years, setYears] = useState('');
     const fileInput = useRef();
     const [photoPrint, setPhotoPrint] = useState(null);
     const [deletePhoto, setDeletePhoto] = useState(false);
@@ -28,10 +23,8 @@ function Edit() {
     const edit = () => {
         setEditData({
             type,
-            size,
-            color,
-            price: parseFloat(price),
-            id: modalData.id,
+            years,
+                  id: modalData.id,
             deletePhoto: deletePhoto ? 1 : 0,
             image: photoPrint
         });
@@ -44,10 +37,8 @@ function Edit() {
             return;
         }
         setType(modalData.type);
-        setSize(modalData.size);
-        setColor(modalData.color);
-        setPrice(modalData.price);
-        setPhotoPrint(modalData.image);
+        setYears(modalData.years);
+           setPhotoPrint(modalData.image);
         setDeletePhoto(false);
     }, [modalData])
 
@@ -61,67 +52,34 @@ function Edit() {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-type">Edit Rubs</h5>
+                        <h5 className="modal-type">Edit Book</h5>
                         <button onClick={() => setModalData(null)} type="button" className="btn-close"></button>
                     </div>
                     <div className="modal-body"></div>
                     <div className="card m-4">
                     <div className="card-body">
-        <select
-          className="form-select mb-4"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          aria-label="Default select example"
-        >
-          <option value={0} disabled>
-            Choose clothes type from list:
-          </option>
-          {Clothes?.map((cl) => (
-            <option key={cl.id} value={cl.type}>
-              {cl.type}
-            </option>
-          ))}
-        </select>
-        <select
-          className="form-select mb-4"
-          value={size}
-          onChange={(e) => setSize(e.target.value)}
-          aria-label="Default select example"
-        >
-          <option value={0} disabled>
-            Choose size from list:
-          </option>
-          {Size?.map((size) => (
-            <option key={size.id} value={size.type}>
-             {size.type}
-            </option>
-          ))}
-        </select>
-        <select
-          className="form-select mb-4"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-          aria-label="Default select example"
-        >
-          <option value={0} disabled>
-            Choose color from list:
-          </option>
-          {Color?.map((cl) => (
-            <option key={cl.id} value={cl.type}>
-            {cl.type}
-            </option>
-          ))}
-        </select>
-        <div className="mb-3">
-          <label className="form-label">Price</label>
-          <input
-            type="text"
-            className="form-control"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+                    <div className="card-body">
+                <div className="mb-3">
+                    <label className="form-label">Book name</label>
+                    <input type="text" className="form-control" value={type} onChange={e => setType(e.target.value)} />
+                </div>
         </div>
-                            <div className="mb-3">
+        <select
+          className="form-select mb-4"
+          value={years}
+          onChange={(e) => setYears(e.target.value)}
+          aria-label="Default select example"
+        >
+          <option value={0} disabled>
+            Choose years from list:
+          </option>
+          {Year?.map((years) => (
+            <option key={years.id} value={years.type}>
+             {years.type}
+            </option>
+          ))}
+        </select>
+                                   <div className="mb-3">
                                 <label className="form-label">Image</label>
                                 <input ref={fileInput} type="file" className="form-control" onChange={doPhoto} />
                             </div>

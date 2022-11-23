@@ -1,23 +1,23 @@
 import { useState, useEffect, useContext } from "react";
 import Home from "../../Contexts/Home";
 import Line from "./Line";
-import Size from "../Data/Size";
+import Year from "../Data/Year";
 import Clothes from "../Data/Clothes";
-import Color from "../Data/Color";
+// import Color from "../Data/Color";
 
-const sortData = [
-  { v: "default", t: "Default" },
-  { v: "price_asc", t: "Price 1-9" },
-  { v: "price_desc", t: "Price 9-1" },
-];
+// const sortData = [
+//   { v: "default", t: "Default" },
+//   { v: "price_asc", t: "Price 1-9" },
+//   { v: "price_desc", t: "Price 9-1" },
+// ];
 
 function List() {
-  const { rubs, setRubs, } = useContext(Home);
-  const [type, setType] = useState("0");
-  const [size, setSize] = useState("0");
-  const [color, setColor] = useState("0");
+  const { rubs, setRubs } = useContext(Home);
+  const [type, setType] = useState("");
+  const [years, setYears] = useState("0");
+ 
 
-  const [sortBy, setSortBy] = useState("default");
+  // const [sortBy, setSortBy] = useState("default");
   const [stats, setStats] = useState({ rubsCount: null });
   const [rubFiltered, setRubFiltered] = useState([]);
 
@@ -32,30 +32,30 @@ function List() {
     setStats((s) => ({ ...s, rubsCount: rubs.length }));
   }, [rubs]);
 
-  useEffect(() => {
-    switch (sortBy) {
-      case "price_asc":
-        setRubs((r) => [...r]?.sort((a, b) => a.price - b.price));
-        break;
-      case "price_desc":
-        setRubs((r) => [...r]?.sort((b, a) => a.price - b.price));
-        break;
-      default:
-        setRubs((r) => [...(r ?? [])]?.sort((a, b) => a.row - b.row));
-    }
-  }, [sortBy, setRubs]);
+  // useEffect(() => {
+  //   switch (sortBy) {
+  //     case "price_asc":
+  //       setRubs((r) => [...r]?.sort((a, b) => a.price - b.price));
+  //       break;
+  //     case "price_desc":
+  //       setRubs((r) => [...r]?.sort((b, a) => a.price - b.price));
+  //       break;
+  //     default:
+  //       setRubs((r) => [...(r ?? [])]?.sort((a, b) => a.row - b.row));
+  //   }
+  // }, [sortBy, setRubs]);
+
+  // useEffect(() => {
+  //   if (rubs !== null) {
+  //     setRubFiltered([...rubs]?.filter((el) => el.color === color));
+  //   }
+  // }, [color, rubs]);
 
   useEffect(() => {
     if (rubs !== null) {
-      setRubFiltered([...rubs]?.filter((el) => el.color === color));
+      setRubFiltered([...rubs]?.filter((el) => el.years === years));
     }
-  }, [color, rubs]);
-
-  useEffect(() => {
-    if (rubs !== null) {
-      setRubFiltered([...rubs]?.filter((el) => el.size === size));
-    }
-  }, [rubs, size]);
+  }, [rubs, years]);
 
   useEffect(() => {
     if (rubs !== null) {
@@ -65,15 +65,14 @@ function List() {
 
   const stop = () => {
     setRubFiltered([]);
-    setColor('0');
-    setSize('0');
-    setType('0')
+    setYears('0');
+    setType('')
   }
  
 
   useEffect(() => {
     if (rubs !== null) {
-      setRubFiltered([...rubs]?.filter((el) => el.titl === titl));
+      setRubFiltered([...rubs]?.filter((el) => el.type === titl));
     }
   }, [rubs, titl]);
 
@@ -82,18 +81,18 @@ function List() {
    <>
       <div className="card m-4">
       <div className='box'>
-      <h4 className="card-header">Cloths list</h4>
+      <h4 className="card-header">Book list</h4>
       <h5 className="card-header">Search</h5>
       <div className="card-body">
       <div className="list-group">
                 <div className="mb-3">
-                    <label className="form-label">Country</label>
-                    <input type="text" className="form-control" placeholder="Please, write searching country here..." value={titl} onChange={e => setTitl(e.target.value)} />   
+                    <label className="form-label">Name</label>
+                    <input type="text" className="form-control" placeholder="Please, write book name here..." value={titl} onChange={e => setTitl(e.target.value)} />   
          </div>
        
               <h5 className="card-header">Sort</h5>
         <div className="card-body">
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label className="form-label">Sort by price:</label>
             <select
               className="form-select"
@@ -106,9 +105,9 @@ function List() {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
           <div className="mb-3">
-            <label className="form-label">Sort by type:</label>
+            <label className="form-label">Sort by name:</label>
             <select
               className="form-select mb-4"
               value={type}
@@ -118,7 +117,7 @@ function List() {
               <option value={0} disabled>
                 Choose clothes type from list:
               </option>
-              {Clothes?.map((cl) => (
+              {rubs?.map((cl) => (
                 <option key={cl.id} value={cl.type}>
                   {cl.type}
                 </option>
@@ -126,24 +125,24 @@ function List() {
             </select>
           </div>
           <div className="mb-3">
-            <label className="form-label">Sort by size:</label>
+            <label className="form-label">Sort by years:</label>
             <select
               className="form-select mb-4"
-              value={size}
-              onChange={(e) => setSize(e.target.value)}
+              value={years}
+              onChange={(e) => setYears(e.target.value)}
               aria-label="Default select example"
             >
               <option value={0} disabled>
-                Choose size from list:
+                Choose years from list:
               </option>
-              {Size?.map((size) => (
-                <option key={size.id} value={size.type}>
-                  {size.type}
+              {rubs?.map((year) => (
+                <option key={year.id} value={year.years}>
+                  {year.years}
                 </option>
               ))}
             </select>
           </div>
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label className="form-label">Sort by color:</label>
             <select
               className="form-select mb-4"
@@ -160,7 +159,7 @@ function List() {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
            <button onClick={stop}>
           {rubFiltered === null ? 'Without sort' : 'All list'}
           </button>   

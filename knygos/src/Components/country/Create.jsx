@@ -34,16 +34,16 @@ function Create() {
 
   return (
     <div className="card m-4">
-      <h5 className="card-header">New Country</h5>
+      <h5 className="card-header">New Categories</h5>
       <div className="card-body">
       <div className="card-body">
                 <div className="mb-3">
-                    <label className="form-label">Country</label>
+                    <label className="form-label">Category</label>
                     <input type="text" className="form-control" value={titl} onChange={e => setTitl(e.target.value)} />
                 </div>
         </div>
         <div className="mb-3">
-                    <label className="form-label">Country Image</label>
+                    <label className="form-label">Categories Image</label>
                     <input ref={fileInput} type="file" className="form-control" onChange={doPhoto} />
                 </div>
                 {photoPrint ? <div className='img-bin'><img src={photoPrint} alt="upload"></img></div> : null}
