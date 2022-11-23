@@ -7,22 +7,22 @@ import Listas from '../Orderis/Listas'
 function Main() {
 
     const [lastUpdate, setLastUpdate] = useState(Date.now());
-    const [rubs, setRubs] = useState (null)
+    const [book, setBook] = useState (null)
 
-
+console.log(book)
 
     // READ for list
     useEffect(() => {
            axios.get('http://localhost:3003/book/wc', authConfig())
             .then(res => {
-                setRubs(((res.data)));
+                setBook(((res.data)));
             })
     }, [lastUpdate]);
 
    
     return (
         <Orders.Provider value={{
-            rubs
+            book
         }}>
             <div className="container">
                 <div className="row">

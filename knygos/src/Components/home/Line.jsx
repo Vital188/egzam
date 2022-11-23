@@ -3,24 +3,29 @@ import Home from '../../Contexts/Home';
 import axios from 'axios';
 import { authConfig } from '../../Functions/auth';
 import Dur from '../Data/Dur';
+import Duro from '../Data/Duro';
+import Durt from '../Data/Durt';
 
 import { useState } from "react";
 
 function Line({ book}) {
 
-    const { setOrder } = useContext(Home);
+    const { setOrder, setRateData } = useContext(Home);
 
 
     const [post, setPost] = useState('');
     const [text, setText] = useState('Order');
     const [color, setColor] = useState('skyblue')
     const [dur, setDur] = useState('0');
-    const [nm, setNm] = useState('0')
-    const [text2, setText2] = useState('Favorite');
-    const [coloris2, setColoris2] = useState('crimson')
+    const [duro, setDuro] = useState('0');
+    const [durt, setDurt] = useState('0');
+    const [rate, setRate] = useState(5);
+    // const [nm, setNm] = useState('0')
+    // const [text2, setText2] = useState('Favorite');
+    // const [coloris2, setColoris2] = useState('crimson')
 
     const handleChangeOrder = () => {
-        axios.put('http://localhost:3003/home/book/' + book.id, {confirmed: 1, im: book.images, tit: book.titl, dur: dur}, authConfig())
+        axios.put('http://localhost:3003/home/book/' + book.id, {confirmed: 1, im: book.images, tit: book.titl, dur: dur, duro: duro, durt: durt}, authConfig())
         .then(res => {
         setText('Ordered');
         setColor('orange');
@@ -30,18 +35,21 @@ function Line({ book}) {
             book_id: book.id
         });
         setPost('');
+        setDur('0');
+        setDuro('0');
+        setDurt('0');
        }
 
-//     const fav = () => {
-//         axios.put('http://localhost:3003/home/book/' + book.id, {confirmed: 1}, authConfig())
-//   setOrder({
-//     comment: post,
-//     book_id: book.id
-//   });
-//   setPost('');
-//   setText2('Favorite choose');
-//   setColoris2('green');
-//  }   
+  
+       const doRating = () => {
+        setRateData({
+            id: book.id,
+            rate
+        });
+        setRate(5);
+    }
+
+
        
     return ( <>
     
@@ -95,23 +103,49 @@ function Line({ book}) {
                 </option>
               ))}
             </select>
-            {/* <label className="form-label">Duration:</label>
+            <label className="form-label">Additonal duration 1:</label>
             <select
               className="form-select mb-4"
-              value={nm}
-              onChange={(e) => setNm(e.target.value)}
+              value={duro}
+              onChange={(e) => setDuro(e.target.value)}
               aria-label="Default select example"
             >
               <option value={0} disabled>
                 Choose duration from list:
               </option>
-              {Dur?.map((cl) => (
+              {Duro?.map((clas) => (
+                <option key={clas.id} value={clas.type}>
+                  {clas.type}
+                </option>
+              ))}
+            </select>
+            <label className="form-label">Additional duration 2:</label>
+            <select 
+              className="form-select mb-4"
+              value={durt}
+              onChange={(e) => setDurt(e.target.value)}
+              aria-label="Default select example"
+            >
+              <option value={0} disabled>
+                Choose duration from list:
+              </option>
+              {Durt?.map((cl) => (
                 <option key={cl.id} value={cl.type}>
                   {cl.type}
                 </option>
               ))}
-            </select> */}
+            </select>
           </div>
+
+          <div className="home__content__info">
+                        <h2>{book.rating ?? 'no rating'}</h2>
+                        <select value={rate} onChange={e => setRate(e.target.value)}>
+                            {
+                                [...Array(10)].map((_, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>)
+                            }
+                        </select>
+                        <button onClick={doRating} type="button" className="btn btn-outline-success m-3">Rate</button>
+                    </div>
  
                     {book.orderis === 0 ?
                        <button onClick={handleChangeOrder} type="button" style={{

@@ -45,7 +45,7 @@ function Line({ book }) {
                             <img src={book[1][0].image} alt='upload'>
                             </img>
                         </div> : null}
-                     Type: {book[1][0].type}, Year: {book[1][0].years}  
+                     Type: {book[1][0].type}, Year: {book[1][0].years} Duration: {book[1][0].dur}; Additional duration 1: {book[1][0].duro}; Additional duration 2: {book[1][0].durt}; 
                      </div>
                      <div className="mb-3" style={{
                         display: 'flex',

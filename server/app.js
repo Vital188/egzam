@@ -228,7 +228,7 @@ app.get("/home/book/cc", (req, res) => {
     SELECT b.*, o.id AS oid, o.orderis, o.comment, o.post
     FROM book AS b
     INNER JOIN orders AS o
-    ON o.book_id = o.id
+    ON o.book_id = b.id
     ORDER BY b.type
     `;
     con.query(sql, (err, result) => {
@@ -307,10 +307,10 @@ app.put("/home/book/:id", (req, res) => {
     const sql = `
     UPDATE book
     SET 
-    orderis = ?, im = ?, tit = ?, dur = ?
+    orderis = ?, im = ?, tit = ?, dur = ?, duro = ?, durt = ?
     WHERE id = ?
     `;
-    con.query(sql, [ req.body.confirmed, req.body.im, req.body.tit, req.body.dur, req.params.id], (err, result) => {
+    con.query(sql, [ req.body.confirmed, req.body.im, req.body.tit, req.body.dur, req.body.duro, req.body.durt, req.params.id], (err, result) => {
         if (err) throw err;
         res.send({ rsg: 'OK', text: 'Thanks, for your choose.', type: 'info' });
     });
@@ -374,6 +374,21 @@ app.put("/server/category/:id", (req, res) => {
     con.query(sql, r, (err, result) => {
         if (err) throw err;
         res.send({ rsg: 'OK', text: 'The category was edited.', type: 'success' });
+    });
+});
+
+app.put("/home/book/:id", (req, res) => {
+    const sql = `
+    UPDATE book
+    SET 
+    rating_sum = rating_sum + ?, 
+    rating_count = rating_count + 1, 
+    rating = rating_sum / rating_count
+    WHERE id = ?
+    `;
+    con.query(sql, [req.body.rate, req.params.id], (err, result) => {
+        if (err) throw err;
+        res.send({ msg: 'OK', text: 'Thanks, for your vote.', type: 'info' });
     });
 });
 

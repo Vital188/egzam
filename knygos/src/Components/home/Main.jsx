@@ -13,6 +13,7 @@ function Main() {
         const [clot, setClot] = useState(null);
         const [order, setOrder] = useState(null);
         const { makeMsg } = useContext(DataContext);
+        const [rateData, setRateData] = useState(null);
 
         // const reList = data => {
         //     const d = new Map();
@@ -53,12 +54,24 @@ function Main() {
             })
          }, [order, makeMsg]);
 
+         useEffect(() => {
+            if (null === rateData) {
+                return;
+            }
+            axios.put('http://localhost:3003/home/book/' + rateData.id, rateData, authConfig())
+            .then(res => {
+                setLastUpdate(Date.now());
+                makeMsg(res.data.text, res.data.type);
+            });
+        }, [rateData, makeMsg]);
+
       return (
         <Home.Provider value={{
             setOrder,
             book,
             setBook, 
-            clot
+            clot, 
+            setRateData
         }}>
         <div className="container">
             <div className="row">

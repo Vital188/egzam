@@ -3,7 +3,7 @@
 function Lines({ book }) {
 
 
-  
+console.log(book)  
     return (
         <li className="list-group-item">
             <div className="home" style={{
@@ -26,7 +26,7 @@ function Lines({ book }) {
                             <img src={book.image} alt='upload'>
                             </img> 
                          </div> : null} 
-                     Type: {book.type}  Year: {book.years}                   
+                     Type: {book.type},  Year: {book.years}, Duration: {book.dur}; Additional duration 1: {book.duro}; Additional duration 2: {book.durt};                 
                      <div className="mb-3" style={{
                         display: 'flex',
                         flexDirection: 'column',
